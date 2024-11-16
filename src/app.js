@@ -1,10 +1,16 @@
 const express = require('express');
-const authRoutes = require('./routes/authRoutes');
-const dotenv = require('dotenv');
+const { connectDB } = require('./config/database');
+require('dotenv').config();
 
-dotenv.config();
 const app = express();
-app.use(express.json());
-app.use('/auth', authRoutes);
 
-module.exports = app;
+app.use(express.static("public"));
+app.use(express.json());
+
+connectDB();
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
+app.listen(process.env.PORT, () => {
+    console.log(`Listening on localhost:${process.env.PORT}`);
+})
