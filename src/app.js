@@ -1,10 +1,9 @@
 const express = require('express');
 const authRoutes = require('./routes/authRoutes');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
-dotenv.config();
 const app = express();
 app.use(express.json());
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 module.exports = app;
